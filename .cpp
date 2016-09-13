@@ -1,19 +1,56 @@
 #include<iostream>
+#include<fstream>
+#include<cstdlib>
 using namespace std;
+string name;
+long roll;
+class noteMaker
+{
+public:
+    string note;
+    void enterNote();
+    void noteFile();
+};
+void noteMaker::enterNote()
+{
+    cout<<"Enter your note Below : "<<endl;
+    cout<<endl;
+    cin>>note;
+}
+void noteMaker::noteFile()
+{
+    ofstream nfile("note.txt");
+    nfile<<"NOTE:-  "<<note<<" -END"<<endl;
+}
+
 class gpa
 {
+    int l=0;
+    float sum=0;
+    float semtot=0;
+    float totCr=0;
 public:
     gpa();
     void calculateGPA();
     void calculateCGPA();
+    void gpaFile();
     void method();
+    void cgpaFile();
 };
 gpa::gpa()
 {
     int input;
     cout<<"                    -------------------------------------------"<<endl;
     cout<<"                                GPA & CGPA Calculator              "<<endl;
-    cout<<"                    --------------------------------------------"<<endl;
+    cout<<"                    -------------------------------------------"<<endl;
+    cout<<endl;
+    cout<<"Enter your name : ";
+    cin>>name;
+    cout<<endl;
+    cout<<endl;
+    cout<<"Enter your Roll number : ";
+    cin>>roll;
+    cout<<endl;
     cout<<"            MENU:"<<endl;
     cout<<"                   1. Calculate GPA (Grade Point Average)"<<endl;
     cout<<"                   2. Calculate CGPA (Cumulative Grade Point Average)"<<endl;
@@ -39,14 +76,13 @@ void gpa::calculateGPA()
         cin>>point[i];
         cout<<"                    -----------------------------------\n\n"<<endl;
     }
-    float sum=0;
     float tot;
     for(int j=0;j<q;j++)
     {
         tot=credit[j]*point[j];
         sum=sum+tot;
     }
-    float totCr=0;
+
     for(int k=0;k<q;k++)
     {
         totCr=totCr+credit[k];
@@ -55,7 +91,6 @@ void gpa::calculateGPA()
 }
 void gpa::calculateCGPA()
 {
-    int l;
     cout<<"   -------------- CGPA Calculation -----------------\n\n"<<endl;
     cout<<"How many semester results do you want input? :";
     cin>>l;
@@ -68,7 +103,6 @@ void gpa::calculateCGPA()
         cin>>semrs[i];
         cout<<"\n"<<endl;
     }
-    float semtot=0;
     for(int j=0;j<l;j++)
     {
         semtot=semtot+semrs[j];
@@ -83,10 +117,20 @@ void gpa::method()
     cout<<"       ------------------------------------------      "<<endl;
 
 }
+void gpa::gpaFile()
+{
+    ofstream ogpafile("gpa.txt");
+    ogpafile<<"NAME : "<<name<<"Roll No: "<<roll<<"GPA : "<<(sum/totCr)<<endl;
+}
+void gpa::cgpaFile()
+{
+    ofstream ocgpafile("cgpa.txt");
+    ocgpafile<<"NAME : "<<name<<"Roll No : "<<roll<<"CGPA : "<<(semtot/l)<<endl;
+}
+
 class BuMa
 {
 private:
-    string name;
     float mon;
     float day;
     float att=0;
@@ -105,6 +149,7 @@ public:
     void compData();
     void dispResult();
     void brConf();
+    void bumaFile();
 };
 BuMa::BuMa()
 {
@@ -118,8 +163,13 @@ BuMa::BuMa()
 }
 void BuMa::mainMenu()
 {
-    cout<<"Enter your name --> ";
+    cout<<"Enter your name : ";
     cin>>name;
+    cout<<endl;
+    cout<<endl;
+    cout<<"Enter your Roll number : ";
+    cin>>roll;
+    cout<<endl;
     cout<<endl;
 }
 void BuMa::getData()
@@ -177,6 +227,12 @@ void BuMa::dispResult()
     cout<<"Hey "<<" "<<name<<" your attendance percentage is..."<<(100-att)<<endl;
     cout<<endl;
 }
+void BuMa::bumaFile()
+{
+    ofstream bfile("buma.txt");
+    bfile<<"NAME :"<<name<<" Roll No : "<<roll<<" Attendance : "<<(100-att)<<endl;
+
+}
 
 int main()
 {
@@ -190,12 +246,18 @@ int main()
     while(1!=0)
     {
     int choice;
+    cout<<"Application List: "<<endl;
+    cout<<"__________________________________"<<endl;
     cout<<" 1 : GPA CALCULATOR"<<endl;
     cout<<" 2 : ATTENDANCE MANAGER"<<endl;
+    cout<<" 3 : NOTE MAKER"<<endl;
+    cout<<" 4 : EXIT "<<endl;
     cout<<endl;
     cout<<"Enter Choice : ";
     cin>>choice;
-    if(choice==1)
+    switch(choice)
+    {
+    case 1:
     {
         gpa a;
         cout<<"Enter choice : ";
@@ -204,18 +266,16 @@ int main()
         if(inp==1)
         {
             a.calculateGPA();
+            a.gpaFile();
         }
         else if(inp==2)
         {
             a.calculateCGPA();
+            a.cgpaFile();
         }
-        else
-        {
-            a.method();
-        }
-
+        break;
     }
-    else
+    case 2:
     {
         BuMa o;
         o.mainMenu();
@@ -226,10 +286,32 @@ int main()
         o.attData();
         o.compData();
         o.dispResult();
+        o.bumaFile();
+        break;
     }
-    cout<<"_________________________________________________________"<<endl;
-    cout<<endl;
-    cout<<"@@@     #TASK ENDED#     @     #TASK ENDED#     @     #TASK ENDED#     @@@"<<endl;
-    cout<<"_________________________________________________________"<<endl;
+    case 3:
+        {
+            noteMaker b;
+            cout<<"                      --------WELCOME TO NOTE-MAKER--------"<<endl;
+            b.enterNote();
+            b.noteFile();
+            cout<<"_________________________________________________________"<<endl;
+            cout<<endl;
+            break;
+        }
+    case 4:
+        {
+            return 0;
+            break;
+        }
     }
+        cout<<"_________________________________________________________"<<endl;
+        cout<<endl;
+        cout<<"@@@  #TASK ENDED#     @ DEVELOPED BY : VINEETH & SRIMAN @     #THANK YOU   @@@ "<<endl;
+        cout<<"                           FOR MORE VISIT : github/vineethreddy2197"<<endl;
+        cout<<"_________________________________________________________"<<endl;
+        cout<<endl;
+        system("cls");
 }
+}
+
