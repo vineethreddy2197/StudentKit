@@ -20,7 +20,7 @@ void noteMaker::enterNote()
 void noteMaker::noteFile()
 {
     ofstream nfile("note.txt");
-    nfile<<"NOTE:-  "<<note<<" -END"<<endl;
+    nfile<<"NOTE:-  "<<note<<" ----END"<<endl;
 }
 
 class gpa
@@ -125,12 +125,12 @@ void gpa::gpaFile()
 void gpa::cgpaFile()
 {
     ofstream ocgpafile("cgpa.txt");
-    ocgpafile<<"NAME : "<<name<<"Roll No : "<<roll<<"CGPA : "<<(semtot/l)<<endl;
+    ocgpafile<<"NAME : "<<name<<"  Roll No : "<<roll<<"  CGPA : "<<(semtot/l)<<endl;
 }
 
 class BuMa
 {
-private:
+public:
     float mon;
     float day;
     float att=0;
@@ -139,15 +139,14 @@ private:
     float q;
     float r;
     float tot;
-public:
     BuMa();
     void mainMenu();
-    void getData();
+    int getData();
     void calData();
     void compDays();
     void attData();
     void compData();
-    void dispResult();
+    int  dispResult();
     void brConf();
     void bumaFile();
 };
@@ -172,17 +171,33 @@ void BuMa::mainMenu()
     cout<<endl;
     cout<<endl;
 }
-void BuMa::getData()
+int BuMa::getData()
 {
+
     cout<<"Enter MONTH (Current Month) --> ";
     cin>>mon;
+    if(mon>10 || mon<7)
+    {
+        cout<<endl;
+        cout<<endl;
+        cout<<"Invalid argument for MONTH...PROGRAM TERMINATED "<<endl;
+        exit(0);
+    }
     cout<<endl;
     cout<<"Enter DATE (Current Date) --> ";
     cin>>day;
+    if(day>31 || day <1)
+    {
+        cout<<endl;
+        cout<<endl;
+        cout<<"Invalid argument for DAY...PROGRAM TERMINATED"<<endl;
+        exit(0);
+    }
     cout<<endl;
 }
 void BuMa::calData()
 {
+    {
     if(day>=11)
     {
         tot=(mon-7)*30+(day-11);
@@ -190,6 +205,7 @@ void BuMa::calData()
     else
     {
         tot=(mon-7)*30+(11-day);
+    }
     }
 }
 void BuMa::compDays()
@@ -220,17 +236,27 @@ void BuMa::compData()
 {
     att=((q*7)+r)/p*100;
 }
-void BuMa::dispResult()
+int BuMa::dispResult()
 {
     cout<<"______________________________________________________"<<endl;
     cout<<endl;
+    if((100-att)>100)
+    {
+        cout<<endl;
+        cout<<endl;
+        cout<<"Invalid arguments received ...PROGRAM TERMINATED "<<endl;
+        exit(0);
+    }
+    else
+    {
     cout<<"Hey "<<" "<<name<<" your attendance percentage is..."<<(100-att)<<endl;
     cout<<endl;
+    }
 }
 void BuMa::bumaFile()
 {
     ofstream bfile("buma.txt");
-    bfile<<"NAME :"<<name<<" Roll No : "<<roll<<" Attendance : "<<(100-att)<<endl;
+    bfile<<"NAME :  "<<name<<" Roll No :  "<<roll<<"  Attendance :  "<<(100-att)<<endl;
 
 }
 
@@ -277,6 +303,8 @@ int main()
     }
     case 2:
     {
+        float mon;
+        float day;
         BuMa o;
         o.mainMenu();
         o.getData();
@@ -311,7 +339,18 @@ int main()
         cout<<"                           FOR MORE VISIT : github/vineethreddy2197"<<endl;
         cout<<"_________________________________________________________"<<endl;
         cout<<endl;
-        system("cls");
+        cout<<endl;
+        char state;
+        cout<<"Want to exit...?"<<endl;
+        cout<<endl;
+        cout<<" Enter --- 'Y' for 'YES'  || 'N' for 'NO'  : ";
+        cin>>state;
+        if(state =='Y' || state =='y')
+        {
+            return 0;
+        }
+        cout<<endl;
+        cout<<endl;
 }
 }
 
