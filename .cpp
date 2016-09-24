@@ -5,6 +5,7 @@
 using namespace std;
 string name;
 long roll;
+string note;
 class openWeb
 {
 public:
@@ -18,20 +19,18 @@ void openWeb::openSite()
 class noteMaker
 {
 public:
-    string note;
     void enterNote();
     void noteFile();
 };
 void noteMaker::enterNote()
 {
-    cout<<"Enter your note Below : "<<endl;
-    cout<<endl;
     cin>>note;
 }
+
 void noteMaker::noteFile()
 {
     ofstream nfile("note.txt");
-    nfile<<"NOTE:-  "<<note<<" ----END"<<endl;
+    nfile<<"NOTE:-  "<<note<<"  :END"<<endl;
 }
 
 class gpa
@@ -66,7 +65,6 @@ gpa::gpa()
     cout<<"                   1. Calculate GPA (Grade Point Average)"<<endl;
     cout<<"                   2. Calculate CGPA (Cumulative Grade Point Average)"<<endl;
     cout<<"                   3. Method that is applied here for calculating GPA & CGPA"<<endl;
-    cout<<"                   4. Exit Application"<<endl;
     cout<<"                   ______________________________________________"<<endl;
 }
 void gpa::calculateGPA()
@@ -268,7 +266,6 @@ void BuMa::bumaFile()
     bfile<<"NAME :  "<<name<<" Roll No :  "<<roll<<"  Attendance :  "<<(100-att)<<endl;
 
 }
-
 int main()
 {
     cout<<"            ****************WELCOME TO STUDENT KIT****************"<<endl;
@@ -309,6 +306,15 @@ int main()
             a.calculateCGPA();
             a.cgpaFile();
         }
+        else if(inp==3)
+        {
+            a.method();
+        }
+        else
+        {
+            cout<<"INVALID CHOICE "<<endl;
+            break;
+        }
         break;
     }
     case 2:
@@ -331,10 +337,9 @@ int main()
         {
             noteMaker b;
             cout<<"                      --------WELCOME TO NOTE-MAKER--------"<<endl;
+            cout<<"Enter NOTE  :   ";
             b.enterNote();
             b.noteFile();
-            cout<<"_________________________________________________________"<<endl;
-            cout<<endl;
             break;
         }
     case 4:
