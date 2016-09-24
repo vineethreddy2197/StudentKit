@@ -1,9 +1,20 @@
 #include<iostream>
 #include<fstream>
 #include<cstdlib>
+#include<windows.h>
 using namespace std;
 string name;
 long roll;
+class openWeb
+{
+public:
+    void openSite();
+};
+void openWeb::openSite()
+{
+    cout<<"Opening Website "<<endl;
+    ShellExecute(NULL,"open","http://vce.ac.in",NULL,NULL,SW_SHOWNORMAL);
+}
 class noteMaker
 {
 public:
@@ -178,8 +189,6 @@ int BuMa::getData()
     cin>>mon;
     if(mon>10 || mon<7)
     {
-        cout<<endl;
-        cout<<endl;
         cout<<"Invalid argument for MONTH...PROGRAM TERMINATED "<<endl;
         exit(0);
     }
@@ -188,8 +197,6 @@ int BuMa::getData()
     cin>>day;
     if(day>31 || day <1)
     {
-        cout<<endl;
-        cout<<endl;
         cout<<"Invalid argument for DAY...PROGRAM TERMINATED"<<endl;
         exit(0);
     }
@@ -214,9 +221,13 @@ void BuMa::compDays()
 }
 void BuMa::brConf()
 {
-    if(mon==8 || mon==9 || (mon==10 && day<20) )
+    if(mon==8 || (mon==10 && day<20) )
     {
         p=gtot*7-14;
+    }
+    else if( mon==9 && day>=24)
+    {
+        p=gtot*7-25;
     }
     else
     {
@@ -242,8 +253,6 @@ int BuMa::dispResult()
     cout<<endl;
     if((100-att)>100)
     {
-        cout<<endl;
-        cout<<endl;
         cout<<"Invalid arguments received ...PROGRAM TERMINATED "<<endl;
         exit(0);
     }
@@ -277,7 +286,8 @@ int main()
     cout<<" 1 : GPA CALCULATOR"<<endl;
     cout<<" 2 : ATTENDANCE MANAGER"<<endl;
     cout<<" 3 : NOTE MAKER"<<endl;
-    cout<<" 4 : EXIT "<<endl;
+    cout<<" 4 : OPEN WEBSITE(www.vce.ac.in) "<<endl;
+    cout<<" 5 : EXIT "<<endl;
     cout<<endl;
     cout<<"Enter Choice : ";
     cin>>choice;
@@ -329,9 +339,21 @@ int main()
         }
     case 4:
         {
-            return 0;
+            openWeb w;
+            w.openSite();
             break;
         }
+    case 5:
+        {
+            exit(0);
+            break;
+        }
+    default :
+        {
+            cout<<"Invalid Choice "<<endl;
+            break;
+        }
+
     }
         cout<<"_________________________________________________________"<<endl;
         cout<<endl;
@@ -347,7 +369,7 @@ int main()
         cin>>state;
         if(state =='Y' || state =='y')
         {
-            return 0;
+            exit(0);
         }
         cout<<endl;
         cout<<endl;
