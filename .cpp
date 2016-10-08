@@ -2,10 +2,11 @@
 #include<fstream>
 #include<cstdlib>
 #include<windows.h>
+#include<string>
 using namespace std;
 string name;
-long roll;
 string note;
+string roll;
 class openWeb
 {
 public:
@@ -13,26 +14,20 @@ public:
 };
 void openWeb::openSite()
 {
-    cout<<"Opening Website "<<endl;
+    cout<<"Opening Website... "<<endl;
     ShellExecute(NULL,"open","http://vce.ac.in",NULL,NULL,SW_SHOWNORMAL);
 }
 class noteMaker
 {
 public:
-    void enterNote();
     void noteFile();
 };
-void noteMaker::enterNote()
-{
-    cin>>note;
-}
-
 void noteMaker::noteFile()
 {
-    ofstream nfile("note.txt");
-    nfile<<"NOTE:-  "<<note<<"  :END"<<endl;
+    ofstream nfile;
+    nfile.open("note.txt",ios::app);
+    nfile<<"NOTE:-  "<<note<<"   ||"<<"--END "<<endl;
 }
-
 class gpa
 {
     int l=0;
@@ -55,11 +50,13 @@ gpa::gpa()
     cout<<"                    -------------------------------------------"<<endl;
     cout<<endl;
     cout<<"Enter your name : ";
-    cin>>name;
+    cin.ignore();
+    getline(cin,name);
     cout<<endl;
     cout<<endl;
     cout<<"Enter your Roll number : ";
-    cin>>roll;
+    cin.ignore();
+    getline(cin,roll);
     cout<<endl;
     cout<<"            MENU:"<<endl;
     cout<<"                   1. Calculate GPA (Grade Point Average)"<<endl;
@@ -129,12 +126,12 @@ void gpa::method()
 void gpa::gpaFile()
 {
     ofstream ogpafile("gpa.txt");
-    ogpafile<<"NAME : "<<name<<"Roll No: "<<roll<<"GPA : "<<(sum/totCr)<<endl;
+    ogpafile<<"NAME : "<<name<<"  ||  "<<"Roll No: "<<roll<<"  ||  "<<"GPA : "<<(sum/totCr)<<" || "<<endl;
 }
 void gpa::cgpaFile()
 {
-    ofstream ocgpafile("cgpa.txt");
-    ocgpafile<<"NAME : "<<name<<"  Roll No : "<<roll<<"  CGPA : "<<(semtot/l)<<endl;
+    ofstream ocgpafile("cgpa.txt",ios::app);
+    ocgpafile<<"NAME : "<<name<<"  ||  "<<"  Roll No : "<<roll<<"  ||  "<<"  CGPA : "<<(semtot/l)<<"  ||  "<<endl;
 }
 
 class BuMa
@@ -172,11 +169,13 @@ BuMa::BuMa()
 void BuMa::mainMenu()
 {
     cout<<"Enter your name : ";
-    cin>>name;
+    cin.ignore();
+    getline(cin,name);
     cout<<endl;
     cout<<endl;
     cout<<"Enter your Roll number : ";
-    cin>>roll;
+    cin.ignore();
+    getline(cin,roll);
     cout<<endl;
     cout<<endl;
 }
@@ -262,8 +261,8 @@ int BuMa::dispResult()
 }
 void BuMa::bumaFile()
 {
-    ofstream bfile("buma.txt");
-    bfile<<"NAME :  "<<name<<" Roll No :  "<<roll<<"  Attendance :  "<<(100-att)<<endl;
+    ofstream bfile("buma.txt",ios::app);
+    bfile<<"NAME :  "<<name<<" || "<<" Roll No :  "<<roll<<" ||  "<<"  Attendance :  "<<(100-att)<<" || "<<endl;
 
 }
 int main()
@@ -277,7 +276,7 @@ int main()
     cout<<endl;
     while(1!=0)
     {
-    int choice;
+    char choice;
     cout<<"Application List: "<<endl;
     cout<<"__________________________________"<<endl;
     cout<<" 1 : GPA CALCULATOR"<<endl;
@@ -290,34 +289,39 @@ int main()
     cin>>choice;
     switch(choice)
     {
-    case 1:
+    case '1':
     {
         gpa a;
         cout<<"Enter choice : ";
-        int inp;
+        char inp;
         cin>>inp;
-        if(inp==1)
+        switch(inp)
+        {
+        case '1':
         {
             a.calculateGPA();
             a.gpaFile();
         }
-        else if(inp==2)
+        case '2':
         {
             a.calculateCGPA();
             a.cgpaFile();
         }
-        else if(inp==3)
+        case '3':
         {
             a.method();
         }
-        else
+        case '4'...'z':
         {
-            cout<<"INVALID CHOICE "<<endl;
+            cout<<endl;
+            cout<<endl;
+            cout<<"Invalid choice ...PROGRAM TERMINATED... "<<endl;
             break;
+        }
         }
         break;
     }
-    case 2:
+    case '2':
     {
         float mon;
         float day;
@@ -333,32 +337,34 @@ int main()
         o.bumaFile();
         break;
     }
-    case 3:
+    case '3':
         {
             noteMaker b;
             cout<<"                      --------WELCOME TO NOTE-MAKER--------"<<endl;
             cout<<"Enter NOTE  :   ";
-            b.enterNote();
+            cin.ignore();
+            getline(cin,note);
             b.noteFile();
             break;
         }
-    case 4:
+    case '4':
         {
             openWeb w;
             w.openSite();
             break;
         }
-    case 5:
+    case '5':
         {
             exit(0);
             break;
         }
-    default :
+    case '6'...'z':
         {
-            cout<<"Invalid Choice "<<endl;
+            cout<<endl;
+            cout<<endl;
+            cout<<"Invalid Choice ...PROGRAM TERMINATED..."<<endl;
             break;
         }
-
     }
         cout<<"_________________________________________________________"<<endl;
         cout<<endl;
@@ -378,6 +384,7 @@ int main()
         }
         cout<<endl;
         cout<<endl;
+    }
 }
-}
+
 
