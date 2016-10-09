@@ -5,8 +5,102 @@
 #include<string>
 using namespace std;
 string name;
+int *arr;
 string note;
 string roll;
+class willPass
+{
+public:
+    int pulka=0;
+    int thop=0;
+    float crazy=0;
+    float bc;
+    int subs;
+    willPass();
+    void canPass();
+    void endSodhi();
+};
+willPass::willPass()
+{
+    cout<<endl;
+    cout<<endl;
+    cout<<"Enter the number of subjects :   ";
+    cin>>subs;
+    cout<<endl;
+    cout<<endl;
+    arr=new int[subs];
+    for(int i=0;i<subs;i++)
+    {
+        cout<<"Enter Marks of Subject "<<(i+1)<<"  : ";
+        cin>>arr[i];
+        if(arr[i]<21)
+        {
+        crazy=crazy+arr[i];
+        thop=thop+20;
+        }
+    }
+    bc=crazy/thop;
+}
+void willPass::canPass()
+{
+    for(int i=0;i<subs;i++)
+    {
+        if(arr[i]<21)
+        {
+            if(arr[i]<9)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<"You Failed...! In  "<<(i+1)<<"'th subject"<<endl;
+                pulka++;
+            }
+            else
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<"Chill buddy...You Passed in..."<<(i+1)<<" 'th subject"<<endl;
+            }
+        }
+        else
+        {
+            cout<<endl;
+            cout<<endl;
+            cout<<"Invalid score...for ... !!!   "<<(i+1)<<" 'th Subject"<<endl;
+        }
+    }
+}
+void willPass::endSodhi()
+{
+    cout<<endl;
+    cout<<endl;
+    cout<<"                                  -----YOUR DESTINY----- "<<endl;
+    cout<<"                                  _______________________"<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<"You FAILED in "<<pulka<<" subjects" <<endl;
+    for(int i=0;i<subs;i++)
+    {
+        if(arr[i]<9)
+        {
+            if((bc)*100>=42 && arr[i]<21)
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<"You can Fail in next internal "<<endl;
+                cout<<endl;
+                cout<<"BUT...must score greater than  "<<(28+20-arr[i])<<" in EXTERNAL to PASS "<<endl;
+            }
+            else
+            {
+                cout<<endl;
+                cout<<endl;
+                cout<<"You DEFINITELY need  "<<(9-arr[i]+9)<<" marks to PASS in  INTERNALS in  "<<(i+1)<<" 'th Subject"<<endl;
+                cout<<endl;
+                cout<<endl;
+            }
+        }
+    }
+}
 class openWeb
 {
 public:
@@ -218,17 +312,26 @@ void BuMa::compDays()
 }
 void BuMa::brConf()
 {
-    if(mon==8 || (mon==10 && day<20) )
+    if(mon==8 )
     {
         p=gtot*7-14;
     }
+    else if(mon==10 && day<=9)
+    {
+        p=gtot*7-60;
+    }
+    else if(mon==10 && day>=13)
+    {
+        p=gtot*7-100;
+    }
     else if( mon==9 && day>=24)
     {
-        p=gtot*7-25;
+        p=gtot*7-40;
     }
     else
     {
         p=gtot*7-30;
+        cout<<p<<endl;
     }
 }
 void BuMa::attData()
@@ -242,7 +345,7 @@ void BuMa::attData()
 }
 void BuMa::compData()
 {
-    att=((q*7)+r)/p*100;
+    att=(((q*7)+r)/p)*100;
 }
 int BuMa::dispResult()
 {
@@ -283,7 +386,8 @@ int main()
     cout<<" 2 : ATTENDANCE MANAGER"<<endl;
     cout<<" 3 : NOTE MAKER"<<endl;
     cout<<" 4 : OPEN WEBSITE(www.vce.ac.in) "<<endl;
-    cout<<" 5 : EXIT "<<endl;
+    cout<<" 5 : WILL I PASS...?"<<endl;
+    cout<<" 6 : EXIT "<<endl;
     cout<<endl;
     cout<<"Enter Choice : ";
     cin>>choice;
@@ -313,10 +417,7 @@ int main()
         }
         case '4'...'z':
         {
-            cout<<endl;
-            cout<<endl;
-            cout<<"Invalid choice ...PROGRAM TERMINATED... "<<endl;
-            break;
+                cout<<"Invalid choice...PROGRAM TERMINATED...!"<<endl;
         }
         }
         break;
@@ -355,14 +456,21 @@ int main()
         }
     case '5':
         {
+            cout<<"                      --------WELCOME TO MARKS ESTIMATOR--------"<<endl;
+            willPass m;
+            m.canPass();
+            m.endSodhi();
+            break;
+        }
+    case '6':
+        {
+            cout<<"TERMINATING THE PROGRAM...!"<<endl;
             exit(0);
             break;
         }
-    case '6'...'z':
+    case '7'...'z':
         {
-            cout<<endl;
-            cout<<endl;
-            cout<<"Invalid Choice ...PROGRAM TERMINATED..."<<endl;
+            cout<<"Invalid CHOICE...!!!"<<endl;
             break;
         }
     }
