@@ -86,7 +86,7 @@ void willPass::endSodhi()
             {
                 cout<<endl;
                 cout<<endl;
-                cout<<"You can Fail in next internal "<<endl;
+                cout<<"You can Fail in next internal in Subject  -->  "<<(i+1)<<endl;
                 cout<<endl;
                 cout<<"BUT...must score greater than  "<<(28+20-arr[i])<<" in EXTERNAL to PASS "<<endl;
             }
@@ -161,7 +161,9 @@ gpa::gpa()
 void gpa::calculateGPA()
 {
     int q;
-    cout<<"                    -------------- GPA Calculating... --------------"<<endl;
+    cout<<"                  -------------- GPA Calculating... --------------"<<endl;
+    cout<<endl;
+    cout<<endl;
     cout<<" How many subject's points do you want to calculate? : ";
     cin>>q;
     float credit [q];
@@ -331,7 +333,6 @@ void BuMa::brConf()
     else
     {
         p=gtot*7-30;
-        cout<<p<<endl;
     }
 }
 void BuMa::attData()
@@ -399,25 +400,31 @@ int main()
         cout<<"Enter choice : ";
         char inp;
         cin>>inp;
+        cout<<endl;
+        cout<<endl;
         switch(inp)
         {
         case '1':
         {
             a.calculateGPA();
             a.gpaFile();
+            break;
         }
         case '2':
         {
             a.calculateCGPA();
             a.cgpaFile();
+            break;
         }
         case '3':
         {
             a.method();
+            break;
         }
         case '4'...'z':
         {
                 cout<<"Invalid choice...PROGRAM TERMINATED...!"<<endl;
+                break;
         }
         }
         break;
